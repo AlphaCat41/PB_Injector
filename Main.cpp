@@ -83,26 +83,29 @@ bool InjectDLL (DWORD pid, const std::wstring& dllPath) {
 int wmain () {
 	std::wstring exeName, dllPath;
 	exeName = L"PointBlank.exe"; // Replace with the target process name
-	dllPath = L"C:\\Users\\DELL\\Desktop\\cpp_repos\\PB_Hack\\Debug\\PB_Hack.dll"; // Replace with the full path to your DLL
+	//dllPath = L"C:\\Users\\DELL\\Desktop\\cpp_repos\\PB_Hack\\Debug\\PB_Hack.dll"; // Replace with the full path to your DLL
 	/*std::wcout << L"Enter target process name: ";
 	std::getline (std::wcin, exeName);*/
 
 	DWORD pid = GetProcessIdByName (exeName);
 	if (!pid) {
 		std::wcerr << L"[!] Process not found.\n";
+		system ("pause");
 		return 1;
 	}
 
-	/*std::wcout << L"Enter full path to DLL: ";
-	std::getline (std::wcin, dllPath);*/
+	std::wcout << L"Enter full path to DLL: ";
+	std::getline (std::wcin, dllPath);
 
 	if (dllPath.empty ()) {
 		std::wcerr << L"[!] DLL path cannot be empty.\n";
+		system ("pause");
 		return 1;
 	}
 
 	if (!InjectDLL (pid, dllPath)) {
 		std::wcerr << L"[!] DLL injection failed.\n";
+		system ("pause");
 		return 1;
 	}
 
